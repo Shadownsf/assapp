@@ -1,10 +1,8 @@
-import 'package:asso/models/article.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:asso/models/article.dart';
 
 class ArticleDetails extends StatelessWidget {
-  // final DocumentSnapshot article;
   final Article article;
 
   ArticleDetails({Key key, @required this.article}) : super(key: key);
@@ -13,7 +11,6 @@ class ArticleDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text(this.article['oganisation']),
         title: Text(this.article.organisation),
       ),
       body: Padding(
@@ -21,7 +18,6 @@ class ArticleDetails extends StatelessWidget {
           child: Column(children: <Widget>[
             Container(
               child: Image.network(
-                // article['imageUrl'],
                 this.article.imageUrl,
                 height: 250,
                 width: double.infinity,
@@ -29,7 +25,6 @@ class ArticleDetails extends StatelessWidget {
               ),
               alignment: Alignment.topCenter,
             ),
-            // Text(article['description']),
             Text(this.article.description),
           ])),
     );

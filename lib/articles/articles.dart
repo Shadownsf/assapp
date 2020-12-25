@@ -1,21 +1,27 @@
-// import 'package:asso/models/article.dart';
-import 'package:asso/models/article.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'article_details.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:asso/models/article.dart';
+import 'package:asso/articles/article_details.dart';
 
 class Articles extends StatelessWidget {
-  final List<DocumentSnapshot> documents;
+  final List<Article> articles;
 
-  Articles({Key key, @required this.documents}) : super(key: key);
+  Articles({Key key, @required this.articles}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Article> articles = _articlesFactory(this.documents);
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            print("More Pressed");
+          },
+        ),
+        title: Text('Home'),
+      ),
       body: ListView.builder(
-        itemCount: documents.length,
+        itemCount: articles.length,
         itemBuilder: (context, index) {
           return InkWell(
             child: Card(
@@ -23,7 +29,6 @@ class Articles extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     child: Image.network(
-                      // articles[index]['imageUrl'],
                       articles[index].imageUrl,
                       height: 150,
                       width: double.infinity,
@@ -33,7 +38,6 @@ class Articles extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      // articles[index]['oganisation'],
                       articles[index].organisation,
                       style: TextStyle(
                           fontSize: 20.0,
@@ -59,14 +63,5 @@ class Articles extends StatelessWidget {
         },
       ),
     );
-  }
-
-  List<Article> _articlesFactory(List<DocumentSnapshot> docs) {
-    return docs.map((doc) {
-      return Article(
-          description: doc['description'],
-          organisation: doc['organisation'],
-          imageUrl: doc['imageUrl']);
-    }).toList();
   }
 }

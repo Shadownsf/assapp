@@ -1,8 +1,9 @@
-// import 'package:asso/data/data.dart';
 import 'package:flutter/material.dart';
-import 'articles/articles.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:asso/articles/articles.dart';
+import 'package:asso/models/article.dart';
 // import 'data/data.dart';
 
 void main() async {
@@ -29,7 +30,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +43,13 @@ class _HomeState extends State<Home> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.active) {
-          return Articles(documents: snapshot.data.documents);
+          final List<Article> articles =
+              Article.transformAll(snapshot.data.documents);
+          return Articles(articles: articles);
         }
 
         return Text("Loading...");
       },
     );
-
-    // return Articles(articles: articles);
   }
 }
